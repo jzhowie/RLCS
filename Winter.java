@@ -49,8 +49,22 @@ public class Winter {
 
   public static void play_group(ArrayList<int[]> g) {
     int[][] matches = new int[6][2];
+    for (int i = 0; i < 3; i++) {
+      matches[i][0] = g.get(0)[0];
+      matches[i+2][1] = g.get(1)[0];
+      matches[1+2*i][(i+1)%2] = g.get(2)[0];
+    }
+
+    matches[0][1] = g.get(3)[0];
+    matches[4][0] = g.get(3)[0];
+    matches[5][0] = g.get(3)[0];
+
+    int games = (int) (Math.random() * 3) + 1;
+    boolean win = Math.random() >= 0.500;
+    System.out.println(win);
     for (int i = 0; i < 6; i++) {
       System.out.println(Arrays.toString(matches[i]));
     }
   }
+
 }
