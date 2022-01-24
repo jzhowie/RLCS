@@ -135,6 +135,8 @@ public class Winter {
       }
     }
 
+
+    // needs work
     for (int i = 0; i < 3; i++) {
       if (g.get(i)[1] == g.get(i+1)[1]) {
         boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.515;
@@ -174,6 +176,45 @@ public class Winter {
     //int size = winners.size();
 
     //size = losers.size();
+
+    //LOSER'S ROUND 1 & 2
+    for (int j = 0; j < 2; j++) {
+      for (int i = 0; i < losers.size(); i++) {
+        boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
+        if (win) {
+          int temp = Math.max(losers.get(i), losers.get(i+1));
+          losers.remove(Math.max(losers.get(i), losers.get(i+1)));
+          rank.add(0, temp);
+        }
+        else {
+          int temp = Math.min(losers.get(i), losers.get(i+1));
+          losers.remove(Math.min(losers.get(i), losers.get(i+1)));
+          rank.add(0, temp);
+        }
+      }
+    }
+
+    // WINNER'S QF
+    for (int i = 0; i < winners.size(); i++) {
+      boolean win = Math.random() >= (float) (Math.abs(winners.get(i) - winners.get(i+1)) * -2) / 130 + 0.5;
+      if (win) {
+        int temp = winners.get(i+1);
+        winners.remove(winners.get(i+1));
+        losers.add(temp);
+      }
+      else {
+        int temp = winners.get(i);
+        winners.remove(winners.get(i));
+        losers.add(temp);
+      }
+    }
+
+    // LOSER'S QF
+
+    int swap = losers.get(1);
+    losers.remove(1);
+    losers.add(swap);
+
     for (int i = 0; i < losers.size(); i++) {
       boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
       if (win) {
@@ -188,19 +229,46 @@ public class Winter {
       }
     }
 
-    for (int i = 0; i < winners.size(); i++) {
-      boolean win = Math.random() >= (float) (Math.abs(winners.get(i) - winners.get(i+1)) * -2) / 130 + 0.5;
-      if (win) {
-        int temp = winners.get(i+1);
-        winners.remove(winners.get(i+1));
-        losers.add(temp);
-      }
-      else {
-        int temp = winners.get(i);
-        winners.remove(winners.get(i));
-        losers.add(temp);
-      }
+    // LOSER'S PRESEMIFINAL
+    boolean win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
+    if (win) {
+      int temp = losers.get(1);
+      losers.remove(losers.get(1));
+      rank.add(0, temp);
     }
+    else {
+      int temp = losers.get(0);
+      losers.remove(losers.get(0));
+      rank.add(0, temp);
+    }
+
+    // WINNER'S SEMIFINALS
+    win = Math.random() >= (float) (Math.abs(winners.get(0) - winners.get(1)) * -2) / 130 + 0.5;
+    if (win) {
+      int temp = winners.get(1);
+      winners.remove(winners.get(1));
+      losers.add(temp);
+    }
+    else {
+      int temp = winners.get(0);
+      winners.remove(winners.get(0));
+      losers.add(temp);
+    }
+
+    // LOSER'S SEMIFINALS
+    win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
+    if (win) {
+      int temp = losers.get(1);
+      losers.remove(losers.get(1));
+      rank.add(0, temp);
+    }
+    else {
+      int temp = losers.get(0);
+      losers.remove(losers.get(0));
+      rank.add(0, temp);
+    }
+
+    // GRAND FINALS
 
     for (int i = 0; i < winners.size(); i++) {
       System.out.println(winners.get(i));
