@@ -11,6 +11,8 @@ public class Winter {
     play_group(group_A, group_B, group_C, group_D);
     sort_group(group_A, group_B, group_C, group_D);
     print_groups(group_A, group_B, group_C, group_D);
+    System.out.println("\n");
+    bracket(group_A, group_B, group_C, group_D);
   }
 
   public static void populate_groups(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
@@ -48,7 +50,6 @@ public class Winter {
     }
   }
 
-
   public static void play_group(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
     play_group(a);
     play_group(b);
@@ -72,7 +73,6 @@ public class Winter {
       play_match(matches[i], g);
     }
   }
-
 
   public static void play_match(int[] t, ArrayList<int[]> g) {
     int a_index = -1;
@@ -133,6 +133,44 @@ public class Winter {
           }
         }
       }
+    }
+
+    for (int i = 0; i < 3; i++) {
+      if (g.get(i)[1] == g.get(i+1)[1]) {
+        boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.5;
+        if (!win) {
+          int temp[] = g.get(i);
+          g.set(i, g.get(i+1));
+          g.set(i+1, temp);
+        }
+      }
+      i++;
+    }
+  }
+
+  public static void bracket(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
+    ArrayList<Integer> winners = new ArrayList<Integer>();
+    winners.add(a.get(0)[0]);
+    winners.add(d.get(0)[0]);
+    winners.add(b.get(0)[0]);
+    winners.add(c.get(0)[0]);
+
+    for (int i = 0; i < winners.size(); i++) {
+      System.out.println(winners.get(i));
+    }
+
+    ArrayList<Integer> losers = new ArrayList<Integer>();
+    losers.add(b.get(1)[0]);
+    losers.add(a.get(2)[0]);
+    losers.add(c.get(1)[0]);
+    losers.add(d.get(2)[0]);
+    losers.add(a.get(1)[0]);
+    losers.add(b.get(2)[0]);
+    losers.add(d.get(1)[0]);
+    losers.add(c.get(2)[0]);
+
+    for (int i = 0; i < losers.size(); i++) {
+      System.out.println(losers.get(i));
     }
   }
 }
