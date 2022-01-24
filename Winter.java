@@ -11,7 +11,7 @@ public class Winter {
     play_group(group_A, group_B, group_C, group_D);
     sort_group(group_A, group_B, group_C, group_D);
     print_groups(group_A, group_B, group_C, group_D);
-    System.out.println("\n");
+    System.out.println();
     bracket(group_A, group_B, group_C, group_D);
   }
 
@@ -79,7 +79,7 @@ public class Winter {
     int b_index = -1;
 
     int games = (int) (Math.random() * 3) + 1;
-    boolean win = Math.random() >= (float) (Math.abs(t[0] - t[1]) * -2) / 130 + 0.5;
+    boolean win = Math.random() >= (float) (Math.abs(t[0] - t[1]) * -2) / 130 + 0.515;
 
     for (int i = 0; i < 4; i++) {
       if (g.get(i)[0] == t[0]) {
@@ -137,7 +137,7 @@ public class Winter {
 
     for (int i = 0; i < 3; i++) {
       if (g.get(i)[1] == g.get(i+1)[1]) {
-        boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.5;
+        boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.515;
         if (!win) {
           int temp[] = g.get(i);
           g.set(i, g.get(i+1));
@@ -155,10 +155,6 @@ public class Winter {
     winners.add(b.get(0)[0]);
     winners.add(c.get(0)[0]);
 
-    for (int i = 0; i < winners.size(); i++) {
-      System.out.println(winners.get(i));
-    }
-
     ArrayList<Integer> losers = new ArrayList<Integer>();
     losers.add(b.get(1)[0]);
     losers.add(a.get(2)[0]);
@@ -169,8 +165,53 @@ public class Winter {
     losers.add(d.get(1)[0]);
     losers.add(c.get(2)[0]);
 
+    ArrayList<Integer> rank = new ArrayList<Integer>();
+    rank.add(a.get(3)[0]);
+    rank.add(b.get(3)[0]);
+    rank.add(c.get(3)[0]);
+    rank.add(d.get(3)[0]);
+
+    //int size = winners.size();
+
+    //size = losers.size();
+    for (int i = 0; i < losers.size(); i++) {
+      boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
+      if (win) {
+        int temp = losers.get(i+1);
+        losers.remove(losers.get(i+1));
+        rank.add(0, temp);
+      }
+      else {
+        int temp = losers.get(i);
+        losers.remove(losers.get(i));
+        rank.add(0, temp);
+      }
+    }
+
+    for (int i = 0; i < winners.size(); i++) {
+      boolean win = Math.random() >= (float) (Math.abs(winners.get(i) - winners.get(i+1)) * -2) / 130 + 0.5;
+      if (win) {
+        int temp = winners.get(i+1);
+        winners.remove(winners.get(i+1));
+        losers.add(temp);
+      }
+      else {
+        int temp = winners.get(i);
+        winners.remove(winners.get(i));
+        losers.add(temp);
+      }
+    }
+
+    for (int i = 0; i < winners.size(); i++) {
+      System.out.println(winners.get(i));
+    }
+    System.out.println();
     for (int i = 0; i < losers.size(); i++) {
       System.out.println(losers.get(i));
+    }
+    System.out.println();
+    for (int i = 0; i < rank.size(); i++) {
+      System.out.println(rank.get(i));
     }
   }
 }
