@@ -8,8 +8,8 @@ public class Winter {
     ArrayList<int[]> group_D = new ArrayList<int[]>();
 
     populate_groups(group_A, group_B, group_C, group_D);
+    play_group(group_A, group_B, group_C, group_D);
     print_groups(group_A, group_B, group_C, group_D);
-    play_group(group_A);
   }
 
   public static void populate_groups(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
@@ -47,6 +47,14 @@ public class Winter {
     }
   }
 
+
+  public static void play_group(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
+    play_group(a);
+    play_group(b);
+    play_group(c);
+    play_group(d);
+  }
+
   public static void play_group(ArrayList<int[]> g) {
     int[][] matches = new int[6][2];
     for (int i = 0; i < 3; i++) {
@@ -59,12 +67,39 @@ public class Winter {
     matches[4][0] = g.get(3)[0];
     matches[5][0] = g.get(3)[0];
 
-    int games = (int) (Math.random() * 3) + 1;
-    boolean win = Math.random() >= 0.500;
-    System.out.println(win);
     for (int i = 0; i < 6; i++) {
-      System.out.println(Arrays.toString(matches[i]));
+      play_match(matches[i], g);
     }
   }
 
+
+  public static void play_match(int[] t, ArrayList<int[]> g) {
+    int a_index = -1;
+    int b_index = -1;
+
+    int games = (int) (Math.random() * 3) + 1;
+    boolean win = Math.random() >= (float) (Math.abs(t[0] - t[1]) * -2) / 130 + 0.5;
+
+    for (int i = 0; i < 4; i++) {
+      if (g.get(i)[0] == t[0]) {
+        a_index = i;
+      }
+      if (g.get(i)[0] == t[1]) {
+        b_index = i;
+      }
+    }
+
+    if (win) {
+      g.get(Math.min(a_index, b_index))[1]++;
+      g.get(Math.min(a_index, b_index))[3] = g.get(Math.min(a_index, b_index))[3] + games;
+      g.get(Math.max(a_index, b_index))[2]++;
+      g.get(Math.max(a_index, b_index))[3] = g.get(Math.max(a_index, b_index))[3] - games;
+    }
+    else {
+      g.get(Math.min(a_index, b_index))[2]++;
+      g.get(Math.min(a_index, b_index))[3] = g.get(Math.min(a_index, b_index))[3] - games;
+      g.get(Math.max(a_index, b_index))[1]++;
+      g.get(Math.max(a_index, b_index))[3] = g.get(Math.max(a_index, b_index))[3] + games;
+    }
+  }
 }
