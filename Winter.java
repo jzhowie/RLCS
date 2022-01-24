@@ -9,6 +9,7 @@ public class Winter {
 
     populate_groups(group_A, group_B, group_C, group_D);
     play_group(group_A, group_B, group_C, group_D);
+    sort_group(group_A, group_B, group_C, group_D);
     print_groups(group_A, group_B, group_C, group_D);
   }
 
@@ -100,6 +101,38 @@ public class Winter {
       g.get(Math.min(a_index, b_index))[3] = g.get(Math.min(a_index, b_index))[3] - games;
       g.get(Math.max(a_index, b_index))[1]++;
       g.get(Math.max(a_index, b_index))[3] = g.get(Math.max(a_index, b_index))[3] + games;
+    }
+  }
+
+  public static void sort_group(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
+    sort_group(a);
+    sort_group(b);
+    sort_group(c);
+    sort_group(d);
+  }
+
+  public static void sort_group(ArrayList<int[]> g) {
+    for (int j = 0; j < 3; j++) {
+      for (int i = 0; i < 3; i++) {
+        if (g.get(i)[1] < g.get(i+1)[1]) {
+          int temp[] = g.get(i);
+          g.set(i, g.get(i+1));
+          g.set(i+1, temp);
+        }
+      }
+    }
+
+
+    for (int j = 0; j < 3; j++) {
+      for (int i = 0; i < 3; i++) {
+        if (g.get(i)[1] == g.get(i+1)[1]) {
+          if (g.get(i)[3] < g.get(i+1)[3]) {
+            int temp[] = g.get(i);
+            g.set(i, g.get(i+1));
+            g.set(i+1, temp);
+          }
+        }
+      }
     }
   }
 }
