@@ -135,15 +135,22 @@ public class Winter {
       }
     }
 
-
-    // needs work
     for (int i = 0; i < 3; i++) {
       if (g.get(i)[1] == g.get(i+1)[1]) {
         boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.515;
-        if (!win) {
-          int temp[] = g.get(i);
-          g.set(i, g.get(i+1));
-          g.set(i+1, temp);
+        if (g.get(i)[0] < g.get(i+1)[0]) { // favored
+          if (!win) {
+            int temp[] = g.get(i);
+            g.set(i, g.get(i+1));
+            g.set(i+1, temp);
+          }
+        }
+        else {
+          if (win) {
+            int temp[] = g.get(i);
+            g.set(i, g.get(i+1));
+            g.set(i+1, temp);
+          }
         }
       }
       i++;
@@ -332,7 +339,7 @@ public class Winter {
         rank.add(0, temp);
       }
       else {
-        int temp =losers.get(1);
+        int temp = losers.get(1);
         losers.remove(1);
         rank.add(0, temp);
       }
@@ -340,27 +347,78 @@ public class Winter {
 
     // GRAND FINALS
     win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
-    // if (win) {
-    //   int temp = losers.get(1);
-    //   losers.remove(losers.get(1));
-    //   rank.add(0, temp);
-    // }
-    // else {
-    //   int temp = losers.get(0);
-    //   losers.remove(losers.get(0));
-    //   rank.add(0, temp);
-    // }
+    if (winners.get(0) < losers.get(0)) { //overdog, doesn't need
+      if (win) {
+        int temp = losers.get(0);
+        losers.remove(0);
+        rank.add(0, temp);
+        rank.add(0, winners.get(0));
+        winners.remove(0);
+      }
+      else {
+        win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
+        if (win) {
+          int temp = losers.get(0);
+          losers.remove(0);
+          rank.add(0, temp);
+          rank.add(0, winners.get(0));
+          winners.remove(0);
+        }
+        else {
+          int temp = winners.get(0);
+          winners.remove(0);
+          rank.add(0, temp);
+          rank.add(0, losers.get(0));
+          losers.remove(0);
+        }
+      }
+    }
+    else { //underdog, needs bracket reset
+      if (win) {
+        win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
+        if (win) {
+          int temp = winners.get(0);
+          winners.remove(0);
+          rank.add(0, temp);
+          rank.add(0, losers.get(0));
+          losers.remove(0);
+        }
+        else {
+          int temp = losers.get(0);
+          losers.remove(0);
+          rank.add(0, temp);
+          rank.add(0, winners.get(0));
+          winners.remove(0);
+        }
+      }
+      else {
+        int temp = losers.get(0);
+        losers.remove(0);
+        rank.add(0, temp);
+        rank.add(0, winners.get(0));
+        winners.remove(0);
+      }
+    }
 
-    for (int i = 0; i < winners.size(); i++) {
-      System.out.println(winners.get(i));
-    }
-    System.out.println();
-    for (int i = 0; i < losers.size(); i++) {
-      System.out.println(losers.get(i));
-    }
-    System.out.println();
-    for (int i = 0; i < rank.size(); i++) {
-      System.out.println(rank.get(i));
-    }
+    print_rankings(rank);
+  }
+
+  public static void print_rankings(ArrayList<Integer> rank) {
+    System.out.print("1st: \t");
+    System.out.println(rank.get(0));
+    System.out.print("T2: \t");
+    System.out.println(rank.get(1));
+    System.out.print("T3: \t");
+    System.out.println(rank.get(2));
+    System.out.print("T4: \t");
+    System.out.println(rank.get(3));
+    System.out.print("T6: \t");
+    System.out.println(rank.get(4) + ", " + rank.get(5));
+    System.out.print("T8: \t");
+    System.out.println(rank.get(6) + ", " + rank.get(7));
+    System.out.print("T12: \t");
+    System.out.println(rank.get(8) + ", " + rank.get(9) + ", " + rank.get(10) + ", " + rank.get(11));
+    System.out.print("T16: \t");
+    System.out.println(rank.get(12) + ", " + rank.get(13) + ", " + rank.get(14) + ", " + rank.get(15));
   }
 }
