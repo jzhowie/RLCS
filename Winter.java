@@ -2,17 +2,37 @@ import java.util.*;
 
 public class Winter {
   public static void main(String[] args) {
-    ArrayList<int[]> group_A = new ArrayList<int[]>();
-    ArrayList<int[]> group_B = new ArrayList<int[]>();
-    ArrayList<int[]> group_C = new ArrayList<int[]>();
-    ArrayList<int[]> group_D = new ArrayList<int[]>();
 
-    populate_groups(group_A, group_B, group_C, group_D);
-    play_group(group_A, group_B, group_C, group_D);
-    sort_group(group_A, group_B, group_C, group_D);
-    print_groups(group_A, group_B, group_C, group_D);
-    System.out.println();
-    bracket(group_A, group_B, group_C, group_D);
+    int iterations = 10000;
+    int points[] = new int[16];
+    for (int i = 0; i < iterations; i++) {
+      ArrayList<int[]> group_A = new ArrayList<int[]>();
+      ArrayList<int[]> group_B = new ArrayList<int[]>();
+      ArrayList<int[]> group_C = new ArrayList<int[]>();
+      ArrayList<int[]> group_D = new ArrayList<int[]>();
+
+      populate_groups(group_A, group_B, group_C, group_D);
+      play_group(group_A, group_B, group_C, group_D);
+      sort_group(group_A, group_B, group_C, group_D);
+      ArrayList<Integer> rank = bracket(group_A, group_B, group_C, group_D);
+      int gain = 351;
+      for (int j = 0; j < rank.size(); j++) {
+        if (j > 11) gain = 60;
+        else if (j > 7) gain = 110;
+        else if (j > 5) gain = 160;
+        else if (j > 3) gain = 190;
+        else if (j > 2) gain = 220;
+        else if (j > 1) gain = 260;
+        else if (j > 0) gain = 300;
+        points[rank.get(j) - 1] += gain;
+      }
+
+    }
+
+    for (int i = 0; i < points.length; i++) {
+      points[i] = points[i] / iterations;
+      System.out.println(i+1 + ": " + points[i]);
+    }
   }
 
   public static void populate_groups(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
@@ -157,7 +177,7 @@ public class Winter {
     }
   }
 
-  public static void bracket(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
+  public static ArrayList<Integer> bracket(ArrayList<int[]> a, ArrayList<int[]> b, ArrayList<int[]> c, ArrayList<int[]> d) {
     ArrayList<Integer> winners = new ArrayList<Integer>();
     winners.add(a.get(0)[0]);
     winners.add(d.get(0)[0]);
@@ -400,7 +420,8 @@ public class Winter {
       }
     }
 
-    print_rankings(rank);
+    // print_rankings(rank);
+    return rank;
   }
 
   public static void print_rankings(ArrayList<Integer> rank) {
