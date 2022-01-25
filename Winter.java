@@ -181,31 +181,59 @@ public class Winter {
     for (int j = 0; j < 2; j++) {
       for (int i = 0; i < losers.size(); i++) {
         boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
-        if (win) {
-          int temp = Math.max(losers.get(i), losers.get(i+1));
-          losers.remove(Math.max(losers.get(i), losers.get(i+1)));
-          rank.add(0, temp);
+        if (losers.get(i) < losers.get(i+1)) { // better seeded
+          if (win) {
+            int temp = losers.get(i+1);
+            losers.remove(i+1);
+            rank.add(0, temp);
+          }
+          else {
+            int temp = losers.get(i);
+            losers.remove(i);
+            rank.add(0, temp);
+          }
         }
-        else {
-          int temp = Math.min(losers.get(i), losers.get(i+1));
-          losers.remove(Math.min(losers.get(i), losers.get(i+1)));
-          rank.add(0, temp);
+        else { // underdog
+          if (win) {
+            int temp = losers.get(i);
+            losers.remove(i);
+            rank.add(0, temp);
+          }
+          else {
+            int temp = losers.get(i+1);
+            losers.remove(i+1);
+            rank.add(0, temp);
+          }
         }
       }
     }
 
     // WINNER'S QF
     for (int i = 0; i < winners.size(); i++) {
-      boolean win = Math.random() >= (float) (Math.abs(winners.get(i) - winners.get(i+1)) * -2) / 130 + 0.5;
-      if (win) {
-        int temp = winners.get(i+1);
-        winners.remove(winners.get(i+1));
-        losers.add(temp);
+      boolean win = Math.random() >= (float) (Math.abs(winners.get(i) - winners.get(i+1)) * -2) / 130 + 0.515;
+      if (winners.get(i) < winners.get(i+1)) { // better seeded
+        if (win) {
+          int temp = winners.get(i+1);
+          winners.remove(i+1);
+          losers.add(temp);
+        }
+        else {
+          int temp = winners.get(i);
+          winners.remove(i);
+          losers.add(temp);
+        }
       }
-      else {
-        int temp = winners.get(i);
-        winners.remove(winners.get(i));
-        losers.add(temp);
+      else { // underdog
+        if (win) {
+          int temp = winners.get(i);
+          winners.remove(i);
+          losers.add(temp);
+        }
+        else {
+          int temp = winners.get(i+1);
+          winners.remove(i+1);
+          losers.add(temp);
+        }
       }
     }
 
@@ -217,33 +245,61 @@ public class Winter {
 
     for (int i = 0; i < losers.size(); i++) {
       boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
-      if (win) {
-        int temp = losers.get(i+1);
-        losers.remove(losers.get(i+1));
-        rank.add(0, temp);
+      if (losers.get(i) < losers.get(i+1)) { // better seeded
+        if (win) {
+          int temp = losers.get(i+1);
+          losers.remove(i+1);
+          rank.add(0, temp);
+        }
+        else {
+          int temp = losers.get(i);
+          losers.remove(i);
+          rank.add(0, temp);
+        }
       }
-      else {
-        int temp = losers.get(i);
-        losers.remove(losers.get(i));
-        rank.add(0, temp);
+      else { // underdog
+        if (win) {
+          int temp = losers.get(i);
+          losers.remove(i);
+          rank.add(0, temp);
+        }
+        else {
+          int temp = losers.get(i+1);
+          losers.remove(i+1);
+          rank.add(0, temp);
+        }
       }
     }
 
     // LOSER'S PRESEMIFINAL
     boolean win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
-    if (win) {
-      int temp = losers.get(1);
-      losers.remove(losers.get(1));
-      rank.add(0, temp);
+    if (losers.get(0) < losers.get(1)) { // better seeded
+      if (win) {
+        int temp = losers.get(1);
+        losers.remove(1);
+        rank.add(0, temp);
+      }
+      else {
+        int temp = losers.get(0);
+        losers.remove(0);
+        rank.add(0, temp);
+      }
     }
-    else {
-      int temp = losers.get(0);
-      losers.remove(losers.get(0));
-      rank.add(0, temp);
+    else { // underdog
+      if (win) {
+        int temp = losers.get(0);
+        losers.remove(0);
+        rank.add(0, temp);
+      }
+      else {
+        int temp = losers.get(1);
+        losers.remove(1);
+        rank.add(0, temp);
+      }
     }
 
     // WINNER'S SEMIFINALS
-    win = Math.random() >= (float) (Math.abs(winners.get(0) - winners.get(1)) * -2) / 130 + 0.5;
+    win = Math.random() >= (float) (Math.abs(winners.get(0) - winners.get(1)) * -2) / 130 + 0.515;
     if (win) {
       int temp = winners.get(1);
       winners.remove(winners.get(1));
@@ -257,6 +313,33 @@ public class Winter {
 
     // LOSER'S SEMIFINALS
     win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
+    if (winners.get(0) < winners.get(1)) { // better seeded
+      if (win) {
+        int temp = winners.get(1);
+        winners.remove(1);
+        rank.add(0, temp);
+      }
+      else {
+        int temp = winners.get(0);
+        winners.remove(0);
+        rank.add(0, temp);
+      }
+    }
+    else { // underdog
+      if (win) {
+        int temp = winners.get(0);
+        winners.remove(0);
+        rank.add(0, temp);
+      }
+      else {
+        int temp = winners.get(1);
+        winners.remove(1);
+        rank.add(0, temp);
+      }
+    }
+
+    // GRAND FINALS
+    win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
     if (win) {
       int temp = losers.get(1);
       losers.remove(losers.get(1));
@@ -267,8 +350,6 @@ public class Winter {
       losers.remove(losers.get(0));
       rank.add(0, temp);
     }
-
-    // GRAND FINALS
 
     for (int i = 0; i < winners.size(); i++) {
       System.out.println(winners.get(i));
