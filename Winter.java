@@ -79,7 +79,7 @@ public class Winter {
     int b_index = -1;
 
     int games = (int) (Math.random() * 3) + 1;
-    boolean win = Math.random() >= (float) (Math.abs(t[0] - t[1]) * -2) / 130 + 0.515;
+    boolean win = Math.random() >= -0.00205128 * Math.pow(t[0] - t[1], 2) + 0.502051;
 
     for (int i = 0; i < 4; i++) {
       if (g.get(i)[0] == t[0]) {
@@ -137,7 +137,7 @@ public class Winter {
 
     for (int i = 0; i < 3; i++) {
       if (g.get(i)[1] == g.get(i+1)[1]) {
-        boolean win = Math.random() >= (float) (Math.abs(g.get(i)[0] - g.get(i+1)[0]) * -2) / 130 + 0.515;
+        boolean win = Math.random() >= -0.00205128 * Math.pow(g.get(i)[0] - g.get(i+1)[0], 2) + 0.502051;
         if (g.get(i)[0] < g.get(i+1)[0]) { // favored
           if (!win) {
             int temp[] = g.get(i);
@@ -187,7 +187,7 @@ public class Winter {
     //LOSER'S ROUND 1 & 2
     for (int j = 0; j < 2; j++) {
       for (int i = 0; i < losers.size(); i++) {
-        boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
+        boolean win = Math.random() >= -0.00205128 * Math.pow(losers.get(i) - losers.get(i+1), 2) + 0.502051;
         if (losers.get(i) < losers.get(i+1)) { // better seeded
           if (win) {
             int temp = losers.get(i+1);
@@ -251,7 +251,7 @@ public class Winter {
     losers.add(swap);
 
     for (int i = 0; i < losers.size(); i++) {
-      boolean win = Math.random() >= (float) (Math.abs(losers.get(i) - losers.get(i+1)) * -2) / 130 + 0.515;
+      boolean win = Math.random() >= -0.00205128 * Math.pow(losers.get(i) - losers.get(i+1), 2) + 0.502051;
       if (losers.get(i) < losers.get(i+1)) { // better seeded
         if (win) {
           int temp = losers.get(i+1);
@@ -279,7 +279,7 @@ public class Winter {
     }
 
     // LOSER'S PRESEMIFINAL
-    boolean win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
+    boolean win = Math.random() >= -0.00205128 * Math.pow(losers.get(0) - losers.get(1), 2) + 0.502051;
     if (losers.get(0) < losers.get(1)) { // better seeded
       if (win) {
         int temp = losers.get(1);
@@ -306,7 +306,7 @@ public class Winter {
     }
 
     // WINNER'S SEMIFINALS
-    win = Math.random() >= (float) (Math.abs(winners.get(0) - winners.get(1)) * -2) / 130 + 0.515;
+    win = Math.random() >= -0.00205128 * Math.pow(winners.get(0) - winners.get(1), 2) + 0.502051;
     if (win) {
       int temp = winners.get(1);
       winners.remove(winners.get(1));
@@ -319,7 +319,7 @@ public class Winter {
     }
 
     // LOSER'S SEMIFINALS
-    win = Math.random() >= (float) (Math.abs(losers.get(0) - losers.get(1)) * -2) / 130 + 0.515;
+    win = Math.random() >= -0.00205128 * Math.pow(losers.get(0) - losers.get(1), 2) + 0.502051;
     if (losers.get(0) < losers.get(1)) { // better seeded
       if (win) {
         int temp = losers.get(1);
@@ -346,7 +346,7 @@ public class Winter {
     }
 
     // GRAND FINALS
-    win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
+    win = Math.random() >= -0.00205128 * Math.pow(winners.get(0) - losers.get(0), 2) + 0.502051;
     if (winners.get(0) < losers.get(0)) { //overdog, doesn't need
       if (win) {
         int temp = losers.get(0);
@@ -356,7 +356,7 @@ public class Winter {
         winners.remove(0);
       }
       else {
-        win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
+        win = Math.random() >= -0.00205128 * Math.pow(winners.get(0) - losers.get(0), 2) + 0.502051;
         if (win) {
           int temp = losers.get(0);
           losers.remove(0);
@@ -375,7 +375,7 @@ public class Winter {
     }
     else { //underdog, needs bracket reset
       if (win) {
-        win = Math.random() >= (float) (Math.abs(winners.get(0) - losers.get(0)) * -2) / 130 + 0.515;
+        win = Math.random() >= -0.00205128 * Math.pow(winners.get(0) - losers.get(0), 2) + 0.502051;
         if (win) {
           int temp = winners.get(0);
           winners.remove(0);
@@ -421,4 +421,5 @@ public class Winter {
     System.out.print("T16: \t");
     System.out.println(rank.get(12) + ", " + rank.get(13) + ", " + rank.get(14) + ", " + rank.get(15));
   }
+
 }
